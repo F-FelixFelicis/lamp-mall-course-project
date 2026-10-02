@@ -1,0 +1,15 @@
+.env
+**/.env
+**/.local/
+**/__pycache__/
+**/.pytest_cache/
+**/.ruff_cache/
+**/node_modules/
+**/.venv/
+**/dist/
+**/unpackage/
+*.pyc
+*.db
+*.sqlite3
+*.log
+.qa/

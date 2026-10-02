@@ -1,0 +1,636 @@
+openapi: 3.1.0
+info:
+  title: 灯具商城核心接口
+  version: 0.1.0
+  description: 客户端小程序 商家端小程序和 PC 管理端共用的第一版接口契约
+servers:
+  - url: /api/v1
+tags:
+  - name: Auth
+  - name: Catalog
+  - name: Search
+  - name: Merchant
+  - name: Order
+  - name: Review
+  - name: Admin
+paths:
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: 手机号注册
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/RegisterRequest'}
+      responses:
+        '201': {$ref: '#/components/responses/UserResponse'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: 账号密码登录
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/LoginRequest'}
+      responses:
+        '200':
+          description: 登录成功
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/TokenResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+  /auth/me:
+    get:
+      tags: [Auth]
+      summary: 获取当前用户
+      security: [{bearerAuth: []}]
+      responses:
+        '200': {$ref: '#/components/responses/UserResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+  /merchant/me:
+    get:
+      tags: [Merchant]
+      summary: 获取已授权的商家端当前用户
+      security: [{bearerAuth: []}]
+      responses:
+        '200': {$ref: '#/components/responses/UserResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+  /admin/me:
+    get:
+      tags: [Admin]
+      summary: 获取已授权的管理端当前用户
+      security: [{bearerAuth: []}]
+      responses:
+        '200': {$ref: '#/components/responses/UserResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+  /products:
+    get:
+      tags: [Catalog]
+      summary: 查询已上架商品
+      parameters:
+        - {$ref: '#/components/parameters/Page'}
+        - {$ref: '#/components/parameters/PageSize'}
+        - name: keyword
+          in: query
+          schema: {type: string}
+        - name: category_id
+          in: query
+          schema: {type: integer, format: int64}
+        - name: sort
+          in: query
+          schema: {type: string, enum: [relevance, price_asc, price_desc, newest]}
+      responses:
+        '200':
+          description: 商品分页
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductPage'
+  /products/{product_id}:
+    get:
+      tags: [Catalog]
+      summary: 获取商品详情和有效报价
+      parameters:
+        - $ref: '#/components/parameters/ProductId'
+      responses:
+        '200':
+          description: 商品详情
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ProductDetail'}
+        '404': {$ref: '#/components/responses/NotFound'}
+  /search/image:
+    post:
+      tags: [Search]
+      summary: 以图搜图
+      operationId: imageSearch
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [image]
+              properties:
+                image: {type: string, format: binary}
+                top_k: {type: integer, minimum: 1, maximum: 50, default: 10}
+                category_id: {type: integer, format: int64}
+      responses:
+        '200':
+          description: 相似 SKU 列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {$ref: '#/components/schemas/ImageSearchHit'}
+        '422': {$ref: '#/components/responses/ValidationError'}
+  /merchant/application:
+    put:
+      tags: [Merchant]
+      summary: 提交或更新商家认证
+      security: [{bearerAuth: []}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/MerchantApplication'}
+      responses:
+        '200':
+          description: 已提交
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/MerchantProfile'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+  /merchant/products:
+    post:
+      tags: [Merchant]
+      summary: 创建灯具商品草稿
+      security: [{bearerAuth: []}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/ProductCreate'}
+      responses:
+        '201':
+          description: 商品草稿
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ProductDetail'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+  /merchant/products/{product_id}/submit:
+    post:
+      tags: [Merchant]
+      summary: 提交商品审核
+      security: [{bearerAuth: []}]
+      parameters:
+        - $ref: '#/components/parameters/ProductId'
+      responses:
+        '202': {description: 已进入待审核状态}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /merchant/skus/{sku_id}/offers:
+    post:
+      tags: [Merchant]
+      summary: 新建 SKU 报价
+      security: [{bearerAuth: []}]
+      parameters:
+        - $ref: '#/components/parameters/SkuId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/OfferCreate'}
+      responses:
+        '201':
+          description: 报价草稿
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Offer'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /orders:
+    get:
+      tags: [Order]
+      summary: 查询当前客户订单
+      security: [{bearerAuth: []}]
+      parameters:
+        - {$ref: '#/components/parameters/Page'}
+        - {$ref: '#/components/parameters/PageSize'}
+        - name: status
+          in: query
+          schema: {type: string}
+      responses:
+        '200':
+          description: 订单分页
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/OrderPage'}
+    post:
+      tags: [Order]
+      summary: 创建订单
+      security: [{bearerAuth: []}]
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: {type: string, maxLength: 64}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/OrderCreate'}
+      responses:
+        '201':
+          description: 订单已创建
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Order'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /orders/{order_id}:
+    get:
+      tags: [Order]
+      summary: 获取订单详情
+      security: [{bearerAuth: []}]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200':
+          description: 订单详情
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Order'}
+        '404': {$ref: '#/components/responses/NotFound'}
+  /merchant/orders/{order_id}/confirm:
+    post:
+      tags: [Order, Merchant]
+      summary: 商家确认订单
+      security: [{bearerAuth: []}]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200': {description: 订单进入待发货状态}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /merchant/orders/{order_id}/shipments:
+    post:
+      tags: [Order, Merchant]
+      summary: 登记发货
+      security: [{bearerAuth: []}]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/ShipmentCreate'}
+      responses:
+        '201': {description: 发货记录已创建}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /orders/{order_id}/complete:
+    post:
+      tags: [Order]
+      summary: 客户确认完成订单
+      security: [{bearerAuth: []}]
+      parameters:
+        - $ref: '#/components/parameters/OrderId'
+      responses:
+        '200': {description: 订单已完成}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /order-items/{order_item_id}/review:
+    post:
+      tags: [Review]
+      summary: 提交订单评价
+      security: [{bearerAuth: []}]
+      parameters:
+        - name: order_item_id
+          in: path
+          required: true
+          schema: {type: integer, format: int64}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/ReviewCreate'}
+      responses:
+        '201': {description: 评价已创建}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /admin/merchants/{merchant_id}/audit:
+    post:
+      tags: [Admin]
+      summary: 审核商家
+      security: [{bearerAuth: []}]
+      parameters:
+        - name: merchant_id
+          in: path
+          required: true
+          schema: {type: integer, format: int64}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/AuditRequest'}
+      responses:
+        '200': {description: 审核完成}
+        '403': {$ref: '#/components/responses/Forbidden'}
+  /admin/products/{product_id}/audit:
+    post:
+      tags: [Admin]
+      summary: 审核商品
+      security: [{bearerAuth: []}]
+      parameters:
+        - $ref: '#/components/parameters/ProductId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/AuditRequest'}
+      responses:
+        '200': {description: 审核完成}
+  /admin/offers/{offer_id}/audit:
+    post:
+      tags: [Admin]
+      summary: 审核报价
+      security: [{bearerAuth: []}]
+      parameters:
+        - name: offer_id
+          in: path
+          required: true
+          schema: {type: integer, format: int64}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/AuditRequest'}
+      responses:
+        '200': {description: 审核完成}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    Page:
+      name: page
+      in: query
+      schema: {type: integer, minimum: 1, default: 1}
+    PageSize:
+      name: page_size
+      in: query
+      schema: {type: integer, minimum: 1, maximum: 100, default: 20}
+    ProductId:
+      name: product_id
+      in: path
+      required: true
+      schema: {type: integer, format: int64}
+    SkuId:
+      name: sku_id
+      in: path
+      required: true
+      schema: {type: integer, format: int64}
+    OrderId:
+      name: order_id
+      in: path
+      required: true
+      schema: {type: integer, format: int64}
+  responses:
+    UserResponse:
+      description: 用户信息
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/User'}
+    Unauthorized:
+      description: 未登录或令牌失效
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    Forbidden:
+      description: 无权操作
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    NotFound:
+      description: 资源不存在
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    Conflict:
+      description: 状态冲突或重复请求
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    ValidationError:
+      description: 参数或文件校验失败
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+  schemas:
+    RegisterRequest:
+      type: object
+      required: [phone, verification_code, password, display_name]
+      properties:
+        phone: {type: string, maxLength: 20}
+        verification_code: {type: string, minLength: 4, maxLength: 8}
+        password: {type: string, minLength: 8, maxLength: 72}
+        display_name: {type: string, minLength: 1, maxLength: 80}
+    LoginRequest:
+      type: object
+      required: [account, password]
+      properties:
+        account: {type: string}
+        password: {type: string}
+    TokenResponse:
+      type: object
+      required: [access_token, token_type, expires_in]
+      properties:
+        access_token: {type: string}
+        token_type: {type: string, const: bearer}
+        expires_in: {type: integer}
+    User:
+      type: object
+      required: [id, display_name, roles, status]
+      properties:
+        id: {type: integer, format: int64}
+        display_name: {type: string}
+        phone_masked: {type: string}
+        roles:
+          type: array
+          items: {type: string, enum: [CUSTOMER, MERCHANT, ADMIN]}
+        status: {type: string}
+    MerchantApplication:
+      type: object
+      required: [shop_name, legal_name, contact_phone, address, business_license_file_id]
+      properties:
+        shop_name: {type: string, maxLength: 120}
+        legal_name: {type: string, maxLength: 80}
+        contact_phone: {type: string, maxLength: 20}
+        address: {type: string, maxLength: 255}
+        business_license_file_id: {type: integer, format: int64}
+    MerchantProfile:
+      allOf:
+        - $ref: '#/components/schemas/MerchantApplication'
+        - type: object
+          required: [id, certification_status]
+          properties:
+            id: {type: integer, format: int64}
+            certification_status: {type: string, enum: [PENDING, APPROVED, REJECTED]}
+    SkuCreate:
+      type: object
+      required: [sku_code]
+      properties:
+        sku_code: {type: string, maxLength: 80}
+        color: {type: string}
+        size_spec: {type: string}
+        material: {type: string}
+        power_watt: {type: number, minimum: 0}
+        color_temperature: {type: string}
+        luminous_flux_lm: {type: integer, minimum: 0}
+        extra_attributes: {type: object, additionalProperties: true}
+        image_file_ids:
+          type: array
+          items: {type: integer, format: int64}
+    ProductCreate:
+      type: object
+      required: [category_id, name, skus]
+      properties:
+        category_id: {type: integer, format: int64}
+        name: {type: string, maxLength: 160}
+        brand: {type: string}
+        style: {type: string}
+        application_space: {type: string}
+        description: {type: string}
+        skus:
+          type: array
+          minItems: 1
+          items: {$ref: '#/components/schemas/SkuCreate'}
+    OfferCreate:
+      type: object
+      required: [price, stock_qty, unit]
+      properties:
+        price: {type: number, minimum: 0}
+        stock_qty: {type: integer, minimum: 0}
+        unit: {type: string, maxLength: 20}
+        remark: {type: string, maxLength: 500}
+    Offer:
+      type: object
+      required: [id, merchant_id, sku_id, price, stock_qty, status, version]
+      properties:
+        id: {type: integer, format: int64}
+        merchant_id: {type: integer, format: int64}
+        shop_name: {type: string}
+        sku_id: {type: integer, format: int64}
+        price: {type: number}
+        stock_qty: {type: integer}
+        unit: {type: string}
+        status: {type: string}
+        version: {type: integer}
+    ProductSummary:
+      type: object
+      required: [id, name, status]
+      properties:
+        id: {type: integer, format: int64}
+        name: {type: string}
+        cover_url: {type: string, format: uri}
+        lowest_price: {type: number, nullable: true}
+        status: {type: string}
+    ProductPage:
+      type: object
+      required: [items, page, page_size, total]
+      properties:
+        items:
+          type: array
+          items: {$ref: '#/components/schemas/ProductSummary'}
+        page: {type: integer}
+        page_size: {type: integer}
+        total: {type: integer}
+    ProductDetail:
+      allOf:
+        - $ref: '#/components/schemas/ProductSummary'
+        - type: object
+          properties:
+            description: {type: string}
+            skus:
+              type: array
+              items:
+                type: object
+                properties:
+                  id: {type: integer, format: int64}
+                  sku_code: {type: string}
+                  attributes: {type: object, additionalProperties: true}
+                  offers:
+                    type: array
+                    items: {$ref: '#/components/schemas/Offer'}
+    ImageSearchHit:
+      type: object
+      required: [product_id, sku_id, similarity]
+      properties:
+        product_id: {type: integer, format: int64}
+        sku_id: {type: integer, format: int64}
+        similarity: {type: number, minimum: -1, maximum: 1}
+        product_name: {type: string}
+        image_url: {type: string, format: uri}
+        lowest_price: {type: number, nullable: true}
+    OrderCreate:
+      type: object
+      required: [offer_id, quantity, fulfillment_type]
+      properties:
+        offer_id: {type: integer, format: int64}
+        quantity: {type: integer, minimum: 1}
+        fulfillment_type: {type: string, enum: [DELIVERY, PICKUP]}
+        address_id: {type: integer, format: int64, nullable: true}
+        remark: {type: string, maxLength: 500}
+    Order:
+      type: object
+      required: [id, order_no, status, total_amount, items, created_at]
+      properties:
+        id: {type: integer, format: int64}
+        order_no: {type: string}
+        status: {type: string, enum: [PENDING_CONFIRM, PENDING_SHIPMENT, SHIPPED, COMPLETED, CANCELLED]}
+        total_amount: {type: number}
+        receiver_name: {type: string, nullable: true}
+        receiver_phone_masked: {type: string, nullable: true}
+        address: {type: string, nullable: true}
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id: {type: integer, format: int64}
+              sku_code: {type: string}
+              product_name: {type: string}
+              unit_price: {type: number}
+              quantity: {type: integer}
+        created_at: {type: string, format: date-time}
+    OrderPage:
+      type: object
+      required: [items, page, page_size, total]
+      properties:
+        items:
+          type: array
+          items: {$ref: '#/components/schemas/Order'}
+        page: {type: integer}
+        page_size: {type: integer}
+        total: {type: integer}
+    ShipmentCreate:
+      type: object
+      required: [shipped_at]
+      properties:
+        carrier_name: {type: string}
+        tracking_no: {type: string}
+        proof_file_id: {type: integer, format: int64}
+        shipped_at: {type: string, format: date-time}
+    ReviewCreate:
+      type: object
+      required: [rating]
+      properties:
+        rating: {type: integer, minimum: 1, maximum: 5}
+        content: {type: string, maxLength: 2000}
+        image_file_ids:
+          type: array
+          maxItems: 6
+          items: {type: integer, format: int64}
+    AuditRequest:
+      type: object
+      required: [result]
+      properties:
+        result: {type: string, enum: [APPROVED, REJECTED]}
+        reason: {type: string, maxLength: 500}
+      allOf:
+        - if:
+            properties:
+              result: {const: REJECTED}
+          then:
+            required: [reason]
+    Error:
+      type: object
+      required: [code, message, request_id]
+      properties:
+        code: {type: string}
+        message: {type: string}
+        request_id: {type: string}
+        details: {type: object, additionalProperties: true}

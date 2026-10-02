@@ -1,0 +1,1 @@
+{"pages":[{"path":"pages/login/index","style":{"navigationBarTitleText":"商家登录","navigationBarBackgroundColor":"#f5f6f3"}},{"path":"pages/home/index","style":{"navigationBarTitleText":"商家工作台","navigationBarBackgroundColor":"#f5f6f3"}}],"globalStyle":{"navigationBarTextStyle":"black","backgroundColor":"#f5f6f3"}}
