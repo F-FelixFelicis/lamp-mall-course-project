@@ -9,6 +9,7 @@ from sqlalchemy import engine_from_config, pool
 
 from app.database import Base
 from app import models  # noqa: F401 - register metadata
+from app import commerce_models  # noqa: F401
 
 
 config = context.config

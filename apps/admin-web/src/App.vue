@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { clearToken, currentAdmin, login, token, type User } from './api'
+import ReviewDesk from './ReviewDesk.vue'
 
 const account = ref('')
 const password = ref('')
@@ -31,7 +32,8 @@ onMounted(loadCurrent)
 </script>
 
 <template>
-  <div class="app-shell">
+  <ReviewDesk v-if="user" :name="user.display_name" @logout="logout" />
+  <div v-else class="app-shell">
     <aside class="brand-panel">
       <div class="brand"><span class="brand-mark">◉</span> LUMIÈRE <span class="brand-sub">灯具商城</span></div>
       <div class="brand-copy">
@@ -53,13 +55,6 @@ onMounted(loadCurrent)
           <button :disabled="loading" type="submit">{{ loading ? '正在验证…' : '登录管理端' }} <span>→</span></button>
         </form>
         <p class="hint">首次管理员账号由项目组在后端命令行创建。</p>
-      </div>
-      <div v-else class="card workspace">
-        <span class="eyebrow dark">ADMIN CONSOLE</span>
-        <h2>你好，{{ user.display_name }}</h2>
-        <p class="subtitle">管理员身份验证通过。商家、商品与报价审核入口即将开放。</p>
-        <div class="status"><span class="dot"></span> 身份状态：{{ user.status }} <small>用户 #{{ user.id }}</small></div>
-        <button class="secondary" @click="logout">退出登录</button>
       </div>
     </main>
   </div>

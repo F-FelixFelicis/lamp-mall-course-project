@@ -1,9 +1,9 @@
 export type User = { id: number; display_name: string; phone_masked?: string; roles: string[]; status: string }
 type Token = { access_token: string; token_type: string; expires_in: number }
 type ErrorBody = { message?: string }
-const BASE = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000'
+export const BASE = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000'
 const TOKEN_KEY = 'lamp_mall_customer_token'
-function request<T>(path: string, method: 'GET' | 'POST', data?: Record<string, string>, token?: string): Promise<T> {
+export function request<T>(path: string, method: 'GET' | 'POST' = 'GET', data?: Record<string, string>, token?: string): Promise<T> {
   return new Promise((resolve, reject) => uni.request({
     url: `${BASE}/api/v1${path}`, method, data,
     header: token ? { Authorization: `Bearer ${token}` } : {},

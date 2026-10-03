@@ -17,6 +17,7 @@ class Settings:
     jwt_secret: str
     access_token_minutes: int = 30
     dev_verification_code: str = "123456"
+    upload_dir: Path = API_ROOT / ".local" / "uploads"
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -32,5 +33,5 @@ class Settings:
             jwt_secret=jwt_secret or secrets.token_urlsafe(48),
             access_token_minutes=int(os.getenv("ACCESS_TOKEN_MINUTES", "30")),
             dev_verification_code=os.getenv("DEV_VERIFICATION_CODE", "123456"),
+            upload_dir=Path(os.getenv("UPLOAD_DIR", str(API_ROOT / ".local" / "uploads"))),
         )
-

@@ -25,7 +25,7 @@ def client(tmp_path, monkeypatch):
     monkeypatch.setenv("DATABASE_URL", database_url)
     alembic = Config(str(ROOT / "alembic.ini"))
     command.upgrade(alembic, "head")
-    app = create_app(Settings("test", database_url, "test-secret-with-at-least-32-characters", 30, CODE))
+    app = create_app(Settings("test", database_url, "test-secret-with-at-least-32-characters", 30, CODE, tmp_path / "uploads"))
     test_client = TestClient(app)
     try:
         yield test_client

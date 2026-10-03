@@ -4,7 +4,7 @@ from collections.abc import Generator
 from pathlib import Path
 
 from fastapi import Request
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, event
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
@@ -19,7 +19,12 @@ def make_engine(database_url: str) -> Engine:
     options = {"pool_pre_ping": True}
     if database_url.startswith("sqlite"):
         options["connect_args"] = {"check_same_thread": False}
-    return create_engine(database_url, **options)
+    engine = create_engine(database_url, **options)
+    if database_url.startswith("sqlite"):
+        @event.listens_for(engine, "connect")
+        def enable_foreign_keys(connection, _):
+            connection.execute("PRAGMA foreign_keys=ON")
+    return engine
 
 
 def get_session(request: Request) -> Generator[Session, None, None]:

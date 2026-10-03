@@ -41,7 +41,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     if settings.app_env == "production" and len(settings.jwt_secret) < 32:
         raise ValueError("JWT_SECRET must contain at least 32 characters in production")
     engine = make_engine(settings.database_url)
-    app = FastAPI(title="灯具商城 API", version="0.1.0", docs_url="/api/docs", openapi_url="/api/openapi.json")
+    app = FastAPI(title="灯具商城 API", version="0.2.0", docs_url="/api/docs", openapi_url="/api/openapi.json")
     if settings.app_env in {"local", "test"}:
         app.add_middleware(
             CORSMiddleware,
@@ -69,6 +69,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         details = {"fields": [{"field": ".".join(map(str, item["loc"])), "message": item["msg"]} for item in exc.errors()]}
         return error_response(request, 422, "VALIDATION_ERROR", "请求参数不符合要求", details)
 
+    @app.exception_handler(IntegrityError)
+    async def integrity_error_handler(request: Request, exc: IntegrityError):
+        return error_response(request, 409, "DATA_CONFLICT", "数据发生冲突，请刷新后重试")
+
     @app.get("/health/live")
     def live():
         return {"status": "ok"}
@@ -80,6 +84,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             role_codes = set(session.scalars(select(Role.code)).all())
             if not {"CUSTOMER", "MERCHANT", "ADMIN"}.issubset(role_codes):
                 raise ValueError("role seed missing")
+            from .commerce_models import Category
+            if session.scalar(select(Category.id).limit(1)) is None:
+                raise ValueError("M2 categories missing")
         except (SQLAlchemyError, ValueError):
             raise ApiError(503, "READINESS_FAILED", "数据库迁移或基础角色尚未就绪") from None
         return {"status": "ready"}
@@ -132,6 +139,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     def admin_me(user: User = Depends(require_role("ADMIN"))):
         return public_user(user)
 
+    from .commerce import router
+    app.include_router(router)
     return app
 
 

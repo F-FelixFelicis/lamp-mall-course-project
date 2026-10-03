@@ -37,3 +37,12 @@ export async function currentAdmin(): Promise<User> {
   return json<User>('/admin/me', { headers: { Authorization: `Bearer ${value}` } })
 }
 
+export function request<T>(path: string, method = 'GET', data?: unknown): Promise<T> {
+  return json<T>(path, { method, headers: { Authorization: `Bearer ${token() || ''}` }, body: data === undefined ? undefined : JSON.stringify(data) })
+}
+
+export async function privateImage(path: string): Promise<string> {
+  const response = await fetch(path, { headers: { Authorization: `Bearer ${token() || ''}` } })
+  if (!response.ok) throw new Error('图片读取失败，请刷新后重试')
+  return URL.createObjectURL(await response.blob())
+}

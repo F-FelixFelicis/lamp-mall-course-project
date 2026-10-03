@@ -17,7 +17,7 @@ async function submit() {
 </script>
 <template>
   <view class="screen"><view class="halo"></view><view class="brand">◉ <text>灯具商城</text></view>
-    <view class="hero"><text class="kicker">A BETTER LIGHT</text><text class="title">为生活，找一盏好灯。</text><text class="sub">从一张图片开始，发现喜欢的灯具。</text></view>
+    <view class="hero"><text class="kicker">A BETTER LIGHT</text><text class="title">为生活，找一盏好灯。</text><text class="sub">探索灯具与规格，比较不同商家的报价。</text></view>
     <view class="card"><view class="tabs"><text :class="{active:!isRegister}" @click="isRegister=false">登录</text><text :class="{active:isRegister}" @click="isRegister=true">注册</text></view>
       <input v-model="account" :placeholder="isRegister?'手机号':'手机号或账号'" /><input v-if="isRegister" v-model="displayName" placeholder="称呼" /><input v-if="isRegister" v-model="code" placeholder="本地验证码见项目说明" /><input v-model="password" password placeholder="密码（至少 8 位）" />
       <text v-if="error" class="error">{{ error }}</text><button :disabled="busy" @click="submit">{{ busy?'请稍候…':isRegister?'注册并进入':'进入商城' }}</button></view>
