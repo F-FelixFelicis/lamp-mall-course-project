@@ -1,0 +1,451 @@
+{
+  "version": 1,
+  "checked_at": "2026-10-03",
+  "notice": "课程样式演示：授权实拍素材不是在售商品供货凭证；名称为自拟样式名，报价与库存为模拟数据，不支持真实购买。摄影师、素材平台和参考品牌均未背书本项目。",
+  "price_references": {
+    "TABLE": {
+      "url": "https://www.ikea.cn/cn/zh/cat/tai-deng-10732/",
+      "note": "同类台灯参考：FORSÅ 99.99 元、ÅRSTID 129 元、DEJSA 229 元。不同品牌与规格不可直接等价；仅用于演示定价档位。"
+    },
+    "PENDANT": {
+      "url": "https://www.ikea.cn/cn/zh/cat/diao-deng-18751/",
+      "note": "同类吊灯参考：SUNNEBY/MOLNSKIKT 179.99 元、HÖLJES 249 元、PILSKOTT 599 元。演示价按单盏/单套造型设置，不是照片原商品售价。"
+    },
+    "FLOOR": {
+      "url": "https://www.ikea.cn/cn/zh/cat/luo-di-deng-10731/",
+      "note": "同类落地灯参考：TÅGARP 79.99 元、LERSTA 129 元、ISJAKT 499 元、HEKTAR 三头 599 元。仅用于基础款与装饰款的演示档位。"
+    },
+    "WALL": {
+      "url": "https://www.ikea.cn/cn/zh/cat/leddeng-20516/",
+      "note": "壁装照明参考：VÅTHULT 99.99 元、HAVSDUN 299 元、KABOMBA 壁灯 399 元。功能和规格不同，仅参考价格跨度，不表示同款比价。"
+    },
+    "CEILING": {
+      "url": "https://www.ikea.cn/cn/zh/cat/leddeng-20516/",
+      "note": "同类顶灯参考：SKALÅDRA 35 cm 199 元、51 cm 399 元；KABOMBA 吸顶灯 299 元。仅用于设定演示档位，不是本款核验售价。"
+    }
+  },
+  "products": [
+    {
+      "sku_code": "DEMO-PHOTO-T01",
+      "category": "TABLE",
+      "name": "曜黑平衡臂台灯",
+      "style": "工业复古",
+      "space": "书房 / 工作台",
+      "color": "黑色 / 金色",
+      "description": "平衡臂与钟形灯罩，适合用来展示书桌局部照明搭配。",
+      "prices": [
+        129,
+        139
+      ],
+      "photo": {
+        "file": "pexels-1112598.jpg",
+        "author": "Eneida Nieves",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/black-metal-desk-lamp-1112598/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-P01",
+      "category": "PENDANT",
+      "name": "原色藤编筒形吊灯",
+      "style": "自然原木",
+      "space": "餐厅 / 茶室",
+      "color": "原木色",
+      "description": "编织筒形灯罩与黑色吊线，展示自然风格的餐桌照明。",
+      "prices": [
+        229,
+        249
+      ],
+      "photo": {
+        "file": "pexels-3554241.jpg",
+        "author": "Content Pixie",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/brown-pendant-light-3554241/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/3554241/pexels-photo-3554241.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-F01",
+      "category": "FLOOR",
+      "name": "三臂黑金落地灯",
+      "style": "复古现代",
+      "space": "客厅 / 阅读角",
+      "color": "黑色 / 金色",
+      "description": "三支灯臂形成富有层次的造型；图片包含完整灯体及空间搭配。",
+      "prices": [
+        599,
+        629
+      ],
+      "photo": {
+        "file": "pexels-8082674.jpg",
+        "author": "Max Vakhtbovych",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/lamps-in-room-8082674/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/8082674/pexels-photo-8082674.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-W01",
+      "category": "WALL",
+      "name": "曜黑单臂壁灯",
+      "style": "工业简约",
+      "space": "床头 / 走廊",
+      "color": "黑色",
+      "description": "单臂圆罩的壁装造型；照片中的墙面与配件不属于报价内容。",
+      "prices": [
+        99,
+        109
+      ],
+      "photo": {
+        "file": "pexels-8243138.jpg",
+        "author": "Prem Singh Tanwar",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/black-wall-lamp-8243138/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/8243138/pexels-photo-8243138.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-C01",
+      "category": "CEILING",
+      "name": "方笼几何吸顶灯",
+      "style": "几何工业",
+      "space": "玄关 / 走廊",
+      "color": "黑色",
+      "description": "方形线框与中央光源构成的顶装造型，图片为仰视效果。",
+      "prices": [
+        199,
+        219
+      ],
+      "photo": {
+        "file": "pexels-4323909.jpg",
+        "author": "Castorly Stock",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/low-angle-shot-of-a-ceiling-light-4323909/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/4323909/pexels-photo-4323909.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-T02",
+      "category": "TABLE",
+      "name": "奶白圆罩台灯",
+      "style": "奶油简约",
+      "space": "卧室 / 边几",
+      "color": "白色",
+      "description": "圆润的宽灯罩与细杆底座，展示床头或边几的柔和光感。",
+      "prices": [
+        149,
+        159
+      ],
+      "photo": {
+        "file": "pexels-4612402.jpg",
+        "author": "Artem Podrez",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/a-white-lamp-on-the-table-4612402/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/4612402/pexels-photo-4612402.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-P02",
+      "category": "PENDANT",
+      "name": "木片球形吊灯",
+      "style": "自然设计",
+      "space": "餐厅 / 客厅",
+      "color": "木色",
+      "description": "木片围合成球形灯罩，呈现可辨识的线条与层次。",
+      "prices": [
+        299,
+        329
+      ],
+      "photo": {
+        "file": "pexels-23020540.jpg",
+        "author": "Jan Zakelj",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/lamp-with-chandelier-23020540/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/23020540/pexels-photo-23020540.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-F02",
+      "category": "FLOOR",
+      "name": "烟茶圆罩落地灯",
+      "style": "现代轻奢",
+      "space": "客厅 / 沙发旁",
+      "color": "烟茶色 / 金色",
+      "description": "烟茶色圆罩搭配纤细灯杆；照片为灯罩与灯杆局部特写。",
+      "prices": [
+        499,
+        529
+      ],
+      "photo": {
+        "file": "pexels-19714779.jpg",
+        "author": "Pavel Morillo",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/modern-floor-lamp-standing-in-an-empty-room-19714779/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/19714779/pexels-photo-19714779.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-W02",
+      "category": "WALL",
+      "name": "白色线框壁灯",
+      "style": "几何简约",
+      "space": "床头 / 玄关",
+      "color": "白色",
+      "description": "开放式几何线框灯罩，照片可直观看到壁装底座与结构。",
+      "prices": [
+        99,
+        119
+      ],
+      "photo": {
+        "file": "pexels-8243139.jpg",
+        "author": "Prem Singh Tanwar",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/8243139/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/8243139/pexels-photo-8243139.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max",
+        "source_note": "Source page corrected from the recorded download photo ID on 2026-10-29. Live page verification blocked by Pexels access challenge; manual source review pending."
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-C02",
+      "category": "CEILING",
+      "name": "乳白圆盘吸顶灯",
+      "style": "经典简约",
+      "space": "玄关 / 过道",
+      "color": "乳白色",
+      "description": "圆盘状顶灯的实际安装场景；图片中的墙面装饰不包含在演示报价内。",
+      "prices": [
+        199,
+        209
+      ],
+      "photo": {
+        "file": "unsplash-qmVC6slOn-w.jpg",
+        "author": "Caroline Badran",
+        "platform": "Unsplash",
+        "page": "https://unsplash.com/photos/a-round-ceiling-light-fixture-on-a-textured-ceiling-qmVC6slOn-w",
+        "license": "https://unsplash.com/license",
+        "download": "https://images.unsplash.com/photo-1764607913461-31031f0b6f97?auto=format&fit=max&fm=jpg&w=1000&h=1000&q=85"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-T03",
+      "category": "TABLE",
+      "name": "黑金折臂工作台灯",
+      "style": "工业复古",
+      "space": "书房 / 工作台",
+      "color": "黑色 / 金色",
+      "description": "双段折臂与圆形底座，白背景照片方便查看灯具完整轮廓。",
+      "prices": [
+        99,
+        115
+      ],
+      "photo": {
+        "file": "pexels-8263858.jpg",
+        "author": "Prem Singh Tanwar",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/8263858/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/8263858/pexels-photo-8263858.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max",
+        "source_note": "Source page corrected from the recorded download photo ID on 2026-10-29. Live page verification blocked by Pexels access challenge; manual source review pending."
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-P03",
+      "category": "PENDANT",
+      "name": "网罩复古单头吊灯",
+      "style": "工业复古",
+      "space": "餐厅 / 吧台",
+      "color": "黑色 / 古铜色",
+      "description": "细密网罩、绳状吊线与复古光源的组合，图片为灯头特写。",
+      "prices": [
+        99,
+        119
+      ],
+      "photo": {
+        "file": "pexels-7803537.jpg",
+        "author": "Ron Lach",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/close-up-shot-of-a-ceiling-lamp-on-white-background-7803537/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/7803537/pexels-photo-7803537.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-F03",
+      "category": "FLOOR",
+      "name": "白色斜罩阅读落地灯",
+      "style": "北欧简约",
+      "space": "书房 / 阅读角",
+      "color": "白色",
+      "description": "斜向灯罩与直杆的简约组合；图片为灯头局部，不据此推定高度。",
+      "prices": [
+        129,
+        149
+      ],
+      "photo": {
+        "file": "pexels-30353221.jpg",
+        "author": "Tranmautritam",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/minimalist-white-floor-lamp-against-neutral-background-30353221/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/30353221/pexels-photo-30353221.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-W03",
+      "category": "WALL",
+      "name": "织纹双臂壁灯",
+      "style": "经典温暖",
+      "space": "床头 / 走廊",
+      "color": "灰色 / 深色",
+      "description": "织纹外观的椭圆灯罩搭配双臂灯架，展示暖光墙面氛围。",
+      "prices": [
+        179,
+        199
+      ],
+      "photo": {
+        "file": "pexels-12840471.jpg",
+        "author": "Berat BAKI",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/wall-lamp-on-a-white-wall-12840471/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/12840471/pexels-photo-12840471.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-P04",
+      "category": "PENDANT",
+      "name": "锥形餐吧吊灯",
+      "style": "现代简约",
+      "space": "餐厅 / 吧台",
+      "color": "深灰色",
+      "description": "锥形罩体的单头吊灯；照片为多灯场景，演示价按单盏计算。",
+      "prices": [
+        159,
+        179
+      ],
+      "photo": {
+        "file": "pexels-8407574.jpg",
+        "author": "KOREAN JH",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/selective-focus-photograph-of-a-hanging-electric-light-8407574/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/8407574/pexels-photo-8407574.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-T04",
+      "category": "TABLE",
+      "name": "暖橙方罩床头灯",
+      "style": "复古温暖",
+      "space": "卧室 / 床头",
+      "color": "暖橙光效",
+      "description": "方形罩体与方形底座；暖橙色为照片光效，不代表可调色功能。",
+      "prices": [
+        79,
+        89
+      ],
+      "photo": {
+        "file": "pexels-5389618.jpg",
+        "author": "Isabella Mendes",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/table-lamp-on-brown-wooden-table-5389618/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/5389618/pexels-photo-5389618.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-P05",
+      "category": "PENDANT",
+      "name": "棱纹球罩枝形吊灯",
+      "style": "复古现代",
+      "space": "客厅 / 餐厅",
+      "color": "透明 / 黑色",
+      "description": "棱纹球罩与枝形灯架的局部细节，完整灯头数和尺寸尚未核验。",
+      "prices": [
+        399,
+        429
+      ],
+      "photo": {
+        "file": "pexels-8634464.jpg",
+        "author": "Kate Branch",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/close-up-shot-of-a-ceiling-lamp-8634464/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/8634464/pexels-photo-8634464.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-F04",
+      "category": "FLOOR",
+      "name": "上照碗形落地灯",
+      "style": "经典简约",
+      "space": "客厅 / 墙角",
+      "color": "乳白色 / 黑色",
+      "description": "碗形罩体向上照明的场景，图片为顶部特写，不承诺特定照度。",
+      "prices": [
+        79,
+        99
+      ],
+      "photo": {
+        "file": "pexels-896407.jpg",
+        "author": "Steve A Johnson",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/turned-on-white-and-black-torchiere-lamp-896407/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/896407/pexels-photo-896407.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-W04",
+      "category": "WALL",
+      "name": "复古提灯式壁灯",
+      "style": "复古庭院",
+      "space": "门廊样式参考",
+      "color": "黑色 / 透明",
+      "description": "提灯式罩体的安装实景；未取得防水等级资料，不作为户外使用承诺。",
+      "prices": [
+        199,
+        229
+      ],
+      "photo": {
+        "file": "pexels-10918029.jpg",
+        "author": "Erik Mclean",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/a-close-up-shot-of-a-wall-lamp-10918029/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/10918029/pexels-photo-10918029.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    },
+    {
+      "sku_code": "DEMO-PHOTO-P06",
+      "category": "PENDANT",
+      "name": "星芒多头吊灯",
+      "style": "现代轻奢",
+      "space": "客厅 / 餐厅",
+      "color": "金色 / 银色",
+      "description": "放射状多灯头造型，仰视照片展示灯臂布局与圆形光源。",
+      "prices": [
+        499,
+        549
+      ],
+      "photo": {
+        "file": "pexels-34084422.jpg",
+        "author": "Sóc Năng Động",
+        "platform": "Pexels",
+        "page": "https://www.pexels.com/photo/modern-minimalist-chandelier-on-white-ceiling-34084422/",
+        "license": "https://www.pexels.com/license/",
+        "download": "https://images.pexels.com/photos/34084422/pexels-photo-34084422.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=max"
+      }
+    }
+  ]
+}

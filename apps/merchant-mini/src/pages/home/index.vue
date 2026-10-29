@@ -33,6 +33,8 @@ onShow(() => run(async () => {
   user.value = await currentUser(); await load()
 }))
 function logout() { clearToken(); uni.reLaunch({ url: '/pages/login/index' }) }
+function openImageSearch() { uni.navigateTo({url:'/pages/image-search/index'}) }
+function openOrders() { uni.navigateTo({ url: '/pages/orders/index' }) }
 function refresh() { return run(load) }
 function uploadLicense() { return run(async () => { application.value.business_license_file_id = (await chooseUpload('LICENSE')).id }) }
 function submitApplication() { return run(async () => {
@@ -74,6 +76,8 @@ function viewMarket(id: number) { return run(async () => { selectedMarket.value 
     <view class="top"><text>◉ 灯具商城 · 商家工作台</text><text @click="logout">退出</text></view>
     <view class="hero"><text class="title">你好，{{ user?.display_name || '商家' }}</text><text class="muted">从一盏好灯开始，经营你的店铺。</text></view>
     <view class="tabs"><button v-for="entry in [{id:'application',name:'认证'},{id:'products',name:'商品'},{id:'offers',name:'报价'},{id:'market',name:'商城选品'}]" :key="entry.id" :class="{active:tab===entry.id}" @click="tab=entry.id">{{ entry.name }}</button></view>
+    <button class="secondary" @click="openImageSearch">图片找相似灯具 →</button>
+    <button class="secondary" @click="openOrders">订单管理 →</button>
     <view class="toolbar"><text v-if="busy">正在处理…</text><button size="mini" :disabled="busy" @click="refresh">刷新状态</button></view>
     <view v-if="error" class="error">{{ error }}</view><view v-if="message" class="success">{{ message }}</view>
     <view v-if="tab==='application'" class="card">

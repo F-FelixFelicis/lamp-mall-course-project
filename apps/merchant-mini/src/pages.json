@@ -1,1 +1,36 @@
-{"pages":[{"path":"pages/login/index","style":{"navigationBarTitleText":"商家登录","navigationBarBackgroundColor":"#f5f6f3"}},{"path":"pages/home/index","style":{"navigationBarTitleText":"商家工作台","navigationBarBackgroundColor":"#f5f6f3"}}],"globalStyle":{"navigationBarTextStyle":"black","backgroundColor":"#f5f6f3"}}
+{
+  "pages": [
+    {
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarTitleText": "商家登录",
+        "navigationBarBackgroundColor": "#f5f6f3"
+      }
+    },
+    {
+      "path": "pages/home/index",
+      "style": {
+        "navigationBarTitleText": "商家工作台",
+        "navigationBarBackgroundColor": "#f5f6f3"
+      }
+    },
+    {
+      "path": "pages/orders/index",
+      "style": {
+        "navigationBarTitleText": "商家订单",
+        "navigationBarBackgroundColor": "#f7f5f0"
+      }
+    },
+    {
+      "path": "pages/image-search/index",
+      "style": {
+        "navigationBarTitleText": "图片找相似灯具",
+        "navigationBarBackgroundColor": "#f7f5ee"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5f6f3"
+  }
+}

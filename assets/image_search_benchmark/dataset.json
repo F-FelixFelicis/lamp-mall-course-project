@@ -1,0 +1,382 @@
+{
+  "schema_version": 1,
+  "split_rule": "first collected query per preliminary category -> dev; remaining -> test",
+  "seed": 20261029,
+  "gallery": [
+    {
+      "sku_code": "DEMO-PHOTO-C01",
+      "name": "方笼几何吸顶灯",
+      "category": "CEILING",
+      "path": "assets/catalog/pexels-4323909.jpg",
+      "sha256": "3b988bb4c3dda1b32bd2cae1ab137bca11c4aa8c5f660554e1aac6daba3fa312",
+      "source_page": "https://www.pexels.com/photo/low-angle-shot-of-a-ceiling-light-4323909/",
+      "author": "Castorly Stock",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-C02",
+      "name": "乳白圆盘吸顶灯",
+      "category": "CEILING",
+      "path": "assets/catalog/unsplash-qmVC6slOn-w.jpg",
+      "sha256": "f67bd6203e700f109731430409f517007a9e3955643689fa024758ae51fe69b3",
+      "source_page": "https://unsplash.com/photos/a-round-ceiling-light-fixture-on-a-textured-ceiling-qmVC6slOn-w",
+      "author": "Caroline Badran",
+      "license_url": "https://unsplash.com/license",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-F01",
+      "name": "三臂黑金落地灯",
+      "category": "FLOOR",
+      "path": "assets/catalog/pexels-8082674.jpg",
+      "sha256": "1f5834b6b8c74b4518ec636e9658e5e8aea8525e89100e5001e86d8f54ae10bd",
+      "source_page": "https://www.pexels.com/photo/lamps-in-room-8082674/",
+      "author": "Max Vakhtbovych",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-F02",
+      "name": "烟茶圆罩落地灯",
+      "category": "FLOOR",
+      "path": "assets/catalog/pexels-19714779.jpg",
+      "sha256": "1871ee0d32207e785872812afeed73cb9fb40cafbf490c96d95f7e3e92287b79",
+      "source_page": "https://www.pexels.com/photo/modern-floor-lamp-standing-in-an-empty-room-19714779/",
+      "author": "Pavel Morillo",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-F03",
+      "name": "白色斜罩阅读落地灯",
+      "category": "FLOOR",
+      "path": "assets/catalog/pexels-30353221.jpg",
+      "sha256": "bdb1e61689ac3de188d07cdaf247fb2bbc54e831f8ae4755f47dcc7261106565",
+      "source_page": "https://www.pexels.com/photo/minimalist-white-floor-lamp-against-neutral-background-30353221/",
+      "author": "Tranmautritam",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-F04",
+      "name": "上照碗形落地灯",
+      "category": "FLOOR",
+      "path": "assets/catalog/pexels-896407.jpg",
+      "sha256": "a5d31c97e3c8522ee96e80d44e1c52731a4e6d894adc99b4596df273dfab7370",
+      "source_page": "https://www.pexels.com/photo/turned-on-white-and-black-torchiere-lamp-896407/",
+      "author": "Steve A Johnson",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-P01",
+      "name": "原色藤编筒形吊灯",
+      "category": "PENDANT",
+      "path": "assets/catalog/pexels-3554241.jpg",
+      "sha256": "a9f93aaf64aabb914176f2e20dfa0c798b23162177e56cfb35c7da5f92919f41",
+      "source_page": "https://www.pexels.com/photo/brown-pendant-light-3554241/",
+      "author": "Content Pixie",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-P02",
+      "name": "木片球形吊灯",
+      "category": "PENDANT",
+      "path": "assets/catalog/pexels-23020540.jpg",
+      "sha256": "9e6baabb6b26b21569063403cd95d9ce28da5c815d24f53309002d6611ec38ac",
+      "source_page": "https://www.pexels.com/photo/lamp-with-chandelier-23020540/",
+      "author": "Jan Zakelj",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-P03",
+      "name": "网罩复古单头吊灯",
+      "category": "PENDANT",
+      "path": "assets/catalog/pexels-7803537.jpg",
+      "sha256": "b7cabda668b5dd5f6dad00791d61f46ec7b7a997865a672e77a3e7a975d40d90",
+      "source_page": "https://www.pexels.com/photo/close-up-shot-of-a-ceiling-lamp-on-white-background-7803537/",
+      "author": "Ron Lach",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-P04",
+      "name": "锥形餐吧吊灯",
+      "category": "PENDANT",
+      "path": "assets/catalog/pexels-8407574.jpg",
+      "sha256": "a6d3a3e2760c09f34b5f0d28663df2f9b6440d405a7375359f4f6c763a199fbc",
+      "source_page": "https://www.pexels.com/photo/selective-focus-photograph-of-a-hanging-electric-light-8407574/",
+      "author": "KOREAN JH",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-P05",
+      "name": "棱纹球罩枝形吊灯",
+      "category": "PENDANT",
+      "path": "assets/catalog/pexels-8634464.jpg",
+      "sha256": "3425e310078cb7a1490dce9027a10159d933e762f81d19e49ea31ee92ac7f3bc",
+      "source_page": "https://www.pexels.com/photo/close-up-shot-of-a-ceiling-lamp-8634464/",
+      "author": "Kate Branch",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-P06",
+      "name": "星芒多头吊灯",
+      "category": "PENDANT",
+      "path": "assets/catalog/pexels-34084422.jpg",
+      "sha256": "2cf5b8d1d605da26c71af474fdfcb707abb9a6d273ddebbe3155949627984e27",
+      "source_page": "https://www.pexels.com/photo/modern-minimalist-chandelier-on-white-ceiling-34084422/",
+      "author": "Sóc Năng Động",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-T01",
+      "name": "曜黑平衡臂台灯",
+      "category": "TABLE",
+      "path": "assets/catalog/pexels-1112598.jpg",
+      "sha256": "bd8ebf1fc3a939a9f173f54959e09b132502da1102599eff4c56c2741452f3f3",
+      "source_page": "https://www.pexels.com/photo/black-metal-desk-lamp-1112598/",
+      "author": "Eneida Nieves",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-T02",
+      "name": "奶白圆罩台灯",
+      "category": "TABLE",
+      "path": "assets/catalog/pexels-4612402.jpg",
+      "sha256": "d4ea066819abe70e95d354ccd46214ae18f5b49bac90a640bac8abf8ad309211",
+      "source_page": "https://www.pexels.com/photo/a-white-lamp-on-the-table-4612402/",
+      "author": "Artem Podrez",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-T03",
+      "name": "黑金折臂工作台灯",
+      "category": "TABLE",
+      "path": "assets/catalog/pexels-8263858.jpg",
+      "sha256": "b6d1d315fb91b0c5724c28a31e436343b642e8870b8616dc3f7462f68de27315",
+      "source_page": "https://www.pexels.com/photo/8263858/",
+      "author": "Prem Singh Tanwar",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": "Source page corrected from the recorded download photo ID on 2026-10-29. Live page verification blocked by Pexels access challenge; manual source review pending."
+    },
+    {
+      "sku_code": "DEMO-PHOTO-T04",
+      "name": "暖橙方罩床头灯",
+      "category": "TABLE",
+      "path": "assets/catalog/pexels-5389618.jpg",
+      "sha256": "ae50c882f006aad8378311ccfa4171f5a9bed6f3b92ff0050b5db4f33df0adf7",
+      "source_page": "https://www.pexels.com/photo/table-lamp-on-brown-wooden-table-5389618/",
+      "author": "Isabella Mendes",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-W01",
+      "name": "曜黑单臂壁灯",
+      "category": "WALL",
+      "path": "assets/catalog/pexels-8243138.jpg",
+      "sha256": "b0d56826a1d80e874c6899a13f3a577f1f1df48994c14c87b5bbc4ec56a21de4",
+      "source_page": "https://www.pexels.com/photo/black-wall-lamp-8243138/",
+      "author": "Prem Singh Tanwar",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-W02",
+      "name": "白色线框壁灯",
+      "category": "WALL",
+      "path": "assets/catalog/pexels-8243139.jpg",
+      "sha256": "b8b2938b4026da12121418b0859d0dcba0eb7687a64ce9ffb0d3eb3af6704f5b",
+      "source_page": "https://www.pexels.com/photo/8243139/",
+      "author": "Prem Singh Tanwar",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": "Source page corrected from the recorded download photo ID on 2026-10-29. Live page verification blocked by Pexels access challenge; manual source review pending."
+    },
+    {
+      "sku_code": "DEMO-PHOTO-W03",
+      "name": "织纹双臂壁灯",
+      "category": "WALL",
+      "path": "assets/catalog/pexels-12840471.jpg",
+      "sha256": "06b9b6841c4957bf0b91305585cd3f2e5784b1b638db36f7f6793dee8b64b9a8",
+      "source_page": "https://www.pexels.com/photo/wall-lamp-on-a-white-wall-12840471/",
+      "author": "Berat BAKI",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    },
+    {
+      "sku_code": "DEMO-PHOTO-W04",
+      "name": "复古提灯式壁灯",
+      "category": "WALL",
+      "path": "assets/catalog/pexels-10918029.jpg",
+      "sha256": "97b0cfe39f7889fb983657c9b3db6f24263b47aa49d3295c42110a7a3f3b4174",
+      "source_page": "https://www.pexels.com/photo/a-close-up-shot-of-a-wall-lamp-10918029/",
+      "author": "Erik Mclean",
+      "license_url": "https://www.pexels.com/license/",
+      "source_note": ""
+    }
+  ],
+  "queries": [
+    {
+      "id": "Q-27781350",
+      "path": "assets/image_search_queries/pexels-query-27781350.jpg",
+      "sha256": "b7c63d5fe4e08058731dfa4ee436275d57a5adaba87988fe1108386679caa514",
+      "preliminary_category": "TABLE",
+      "split": "dev",
+      "source_page": "https://www.pexels.com/photo/a-lamp-with-a-white-shade-on-top-of-a-table-27781350/",
+      "author": "Wo Nfoni Media",
+      "license_url": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "Q-8834624",
+      "path": "assets/image_search_queries/pexels-query-8834624.jpg",
+      "sha256": "16045e8bdab64c2ca24aa1a7f0d0439ee54a6079e6e73806fef0099588c97994",
+      "preliminary_category": "TABLE",
+      "split": "test",
+      "source_page": "https://www.pexels.com/photo/a-table-lamp-on-the-table-with-mirror-8834624/",
+      "author": "Ron Lach",
+      "license_url": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "Q-19240054",
+      "path": "assets/image_search_queries/pexels-query-19240054.jpg",
+      "sha256": "735de0f016c187df0c6e3d1f26b282144410648e26cb3d06db206a95775c0969",
+      "preliminary_category": "TABLE",
+      "split": "test",
+      "source_page": "https://www.pexels.com/photo/black-and-white-photo-of-a-desk-lamp-19240054/",
+      "author": "juliane Monari",
+      "license_url": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "Q-37412550",
+      "path": "assets/image_search_queries/pexels-query-37412550.jpg",
+      "sha256": "748ef79aa7222f8d2a2503a13fceb60ea5988e4cc46eef11a5394d7612fd9dde",
+      "preliminary_category": "PENDANT",
+      "split": "dev",
+      "source_page": "https://www.pexels.com/photo/modern-pendant-lamp-with-warm-light-indoors-37412550/",
+      "author": "Jonathan Córdova R.",
+      "license_url": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "Q-8763072",
+      "path": "assets/image_search_queries/pexels-query-8763072.jpg",
+      "sha256": "f3f864c6bda2a6e6546e4789488c13cae2bd6ceb2365c0be2c46390b7d6b91e3",
+      "preliminary_category": "PENDANT",
+      "split": "test",
+      "source_page": "https://www.pexels.com/photo/pendant-lamp-above-a-table-8763072/",
+      "author": "Pavel Danilyuk",
+      "license_url": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "Q-221151",
+      "path": "assets/image_search_queries/pexels-query-221151.jpg",
+      "sha256": "56a421ec59c52732606cedd57b3868946e7d8045295d03932584a43d31744114",
+      "preliminary_category": "PENDANT",
+      "split": "test",
+      "source_page": "https://www.pexels.com/photo/brown-pendant-lamp-during-nighttime-221151/",
+      "author": "Jens",
+      "license_url": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "Q-26346242",
+      "path": "assets/image_search_queries/pexels-query-26346242.jpg",
+      "sha256": "254c3dfd85a557a84e2b8150dc0bcd370327c2aeed8bcc4522a1da59e5be0688",
+      "preliminary_category": "FLOOR",
+      "split": "dev",
+      "source_page": "https://www.pexels.com/photo/lamp-in-room-corner-26346242/",
+      "author": "Ozge Alpaslan",
+      "license_url": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "Q-19934344",
+      "path": "assets/image_search_queries/pexels-query-19934344.jpg",
+      "sha256": "96e9bb775d13a5bf4eeadd6ac9e92a8b7bb923df7738a9625d99c152ca679dc1",
+      "preliminary_category": "FLOOR",
+      "split": "test",
+      "source_page": "https://www.pexels.com/photo/black-lamp-on-white-background-19934344/",
+      "author": "Bruna Crossi",
+      "license_url": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "Q-3987481",
+      "path": "assets/image_search_queries/pexels-query-3987481.jpg",
+      "sha256": "5949123e63a609f56cdd415e7ec03c34a00034339525b7a89648608af38d81da",
+      "preliminary_category": "FLOOR",
+      "split": "test",
+      "source_page": "https://www.pexels.com/photo/black-floor-lamp-beside-gray-couch-3987481/",
+      "author": "Lucian Petrean",
+      "license_url": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "Q-15970989",
+      "path": "assets/image_search_queries/pexels-query-15970989.jpg",
+      "sha256": "c377cf3a288c800a183576048b31494eec456b8cc7459b01fa05a4f3012408d3",
+      "preliminary_category": "WALL",
+      "split": "dev",
+      "source_page": "https://www.pexels.com/photo/a-lamp-shining-in-the-darkness-15970989/",
+      "author": "Benjamin Farren",
+      "license_url": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "Q-28446048",
+      "path": "assets/image_search_queries/pexels-query-28446048.jpg",
+      "sha256": "55af2cea9652dc8a30d4acde158ccbb475b76a70c1082b9023830282e07574e3",
+      "preliminary_category": "WALL",
+      "split": "test",
+      "source_page": "https://www.pexels.com/photo/minimalist-white-wall-with-lamp-and-plant-28446048/",
+      "author": "Jan van der Wolf",
+      "license_url": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "Q-16241146",
+      "path": "assets/image_search_queries/pexels-query-16241146.jpg",
+      "sha256": "fb99a16931be2fdf41b5f2537e5619dcc2d2538c709cc23ebb1874ebea245366",
+      "preliminary_category": "WALL",
+      "split": "test",
+      "source_page": "https://www.pexels.com/photo/lamp-on-wall-16241146/",
+      "author": "Fatih Doğrul",
+      "license_url": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "Q-6980702",
+      "path": "assets/image_search_queries/pexels-query-6980702.jpg",
+      "sha256": "208a40124331cdd652bf0d81cd9559e206b1f39897167b962dfa3f98f16ab15c",
+      "preliminary_category": "CEILING",
+      "split": "dev",
+      "source_page": "https://www.pexels.com/photo/modern-chandelier-hanging-on-ceiling-at-home-6980702/",
+      "author": "Max Vakhtbovych",
+      "license_url": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "Q-28656089",
+      "path": "assets/image_search_queries/pexels-query-28656089.jpg",
+      "sha256": "0cd4776a7eec36bb0e442fa11f1a82ef3ea66b23b49921f7f703e032cab2a930",
+      "preliminary_category": "CEILING",
+      "split": "test",
+      "source_page": "https://www.pexels.com/photo/elegant-vintage-ceiling-light-fixture-in-dim-room-28656089/",
+      "author": "Melbin Jacob",
+      "license_url": "https://www.pexels.com/license/"
+    },
+    {
+      "id": "Q-5990394",
+      "path": "assets/image_search_queries/pexels-query-5990394.jpg",
+      "sha256": "ae426817b8f9d692fb1f1e1d06727b7a011ce9af6434b1e2671d2a72231bb730",
+      "preliminary_category": "CEILING",
+      "split": "test",
+      "source_page": "https://www.pexels.com/photo/modern-chandelier-5990394/",
+      "author": "Sonny Sixteen",
+      "license_url": "https://www.pexels.com/license/"
+    }
+  ],
+  "near_duplicate_candidates": [],
+  "relevance_rule": "2=strong visual similarity; 1=weak similarity; 0=not relevant. Category alone is insufficient.",
+  "data_version": "7efca6f04ba9da8e92dfd88028811f4d6a8030bc31194b81331d4d9eca5a0543"
+}

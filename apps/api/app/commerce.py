@@ -94,8 +94,8 @@ def file_owned(session, file_id, user_id, purpose):
 @router.post("/files", status_code=201, tags=["Files"], response_model=FileResult)
 async def upload(request: Request, file: UploadFile = File(...), purpose: str = Form(...),
                  user: User = Depends(get_current_user), session: Session = Depends(get_session)):
-    if purpose not in {"LICENSE", "PRODUCT"}:
-        fail(422, "INVALID_PURPOSE", "图片用途必须为 LICENSE 或 PRODUCT")
+    if purpose not in {"LICENSE", "PRODUCT", "SHIPMENT"}:
+        fail(422, "INVALID_PURPOSE", "请选择证照、商品图或发货凭证用途")
     raw = await file.read(5 * 1024 * 1024 + 1)
     await file.close()
     if len(raw) > 5 * 1024 * 1024:
@@ -142,7 +142,12 @@ def file_content(file_id: int, request: Request, credentials=Depends(bearer), se
         MerchantProfile.deleted_at.is_(None), Category.status == "ACTIVE", User.status == "ACTIVE", User.deleted_at.is_(None)).limit(1)) is not None
     if not public:
         user = get_current_user(request, credentials, session)
-        if item.owner_user_id != user.id and "ADMIN" not in {r.code for r in user.roles}:
+        from .order_models import Order, OrderItem, Shipment
+        order_ids = select(OrderItem.order_id).where(OrderItem.cover_file_id == file_id).union(
+            select(Shipment.order_id).where(Shipment.proof_file_id == file_id))
+        order_access = session.scalar(select(Order.id).outerjoin(MerchantProfile, MerchantProfile.id == Order.merchant_id).where(
+            Order.id.in_(order_ids), or_(Order.customer_id == user.id, MerchantProfile.user_id == user.id)).limit(1)) is not None
+        if item.owner_user_id != user.id and "ADMIN" not in {r.code for r in user.roles} and not order_access:
             fail(403, "FORBIDDEN", "无权访问此图片")
     target = request.app.state.settings.upload_dir / item.storage_key
     if not target.is_file():
@@ -206,8 +211,14 @@ def product_json(session, product, public=False, merchant_id=None):
     result = {key: getattr(product, key) for key in ("id", "category_id", "name", "brand", "style", "application_space", "description", "status", "version")}
     result["category_name"] = session.get(Category, product.category_id).name
     result["skus"] = []
+    result["is_demo"] = False
+    result["demo_source"] = None
     prices = []
     for sku in session.scalars(select(ProductSku).where(ProductSku.product_id == product.id, ProductSku.status == "ACTIVE").order_by(ProductSku.id)):
+        demo = (sku.extra_attributes or {}).get("demo_catalog")
+        if demo:
+            result["is_demo"] = True
+            result["demo_source"] = demo
         images = list(session.scalars(select(ProductImage).where(ProductImage.sku_id == sku.id).order_by(ProductImage.sort_order)))
         statement = active_offers().where(MerchantOffer.sku_id == sku.id) if public else select(MerchantOffer).where(MerchantOffer.sku_id == sku.id)
         if not public and merchant_id is not None:
@@ -253,7 +264,7 @@ def products(keyword: str = Query(default="", max_length=100), category_id: int 
     items = []
     for product, lowest in session.execute(statement.offset((page - 1) * page_size).limit(page_size)):
         data = product_json(session, product, public=True)
-        items.append({key: data[key] for key in ("id", "name", "category_name", "cover_url", "lowest_price", "status")})
+        items.append({key: data[key] for key in ("id", "name", "category_name", "cover_url", "lowest_price", "status", "is_demo")})
     return {"items": items, "page": page, "page_size": page_size, "total": total}
 
 
@@ -316,10 +327,15 @@ def edit_product(product_id: int, payload: ProductEdit, request: Request, user: 
 
 @router.put("/merchant/skus/{sku_id}", tags=["Merchant"], response_model=ProductResult)
 def edit_sku(sku_id: int, payload: SkuEdit, request: Request, user: User = Depends(get_current_user), session: Session = Depends(get_session)):
+    from .order_rules import has_unshipped, lock_product, write_guard
+    write_guard(session)
     sku = session.get(ProductSku, sku_id)
     if not sku:
         fail(404, "NOT_FOUND", "规格不存在")
     product = owned_product(session, user, sku.product_id)
+    lock_product(session, product.id)
+    if has_unshipped(session, sku_id):
+        fail(409, "UNSHIPPED_ORDERS", "此规格有待发货订单，请先履约或取消后再修改规格")
     change(session, product, payload.version, ["DRAFT", "REJECTED", "OFF_SALE"], status="DRAFT")
     for key, value in payload.model_dump(exclude={"version", "image_file_ids"}).items():
         setattr(sku, key, value)
@@ -406,6 +422,8 @@ def admin_offers(user: User = Depends(require_role("ADMIN")), session: Session =
 @router.post("/admin/{kind}/{object_id}/audit", tags=["Admin"], response_model=AuditResult)
 def audit(kind: str, object_id: int, payload: AuditRequest, request: Request,
           user: User = Depends(require_role("ADMIN")), session: Session = Depends(get_session)):
+    from .order_rules import has_unshipped, lock_product, write_guard
+    write_guard(session)
     config = {"merchants": (MerchantProfile, MerchantAudit, "merchant_id", "certification_status"),
               "products": (Product, ProductAudit, "product_id", "status"),
               "offers": (MerchantOffer, OfferAudit, "offer_id", "status")}
@@ -429,6 +447,9 @@ def audit(kind: str, object_id: int, payload: AuditRequest, request: Request,
             fail(409, "MERCHANT_NOT_APPROVED", "商家尚未通过认证")
     if isinstance(obj, MerchantOffer) and payload.result == "APPROVED":
         sku = session.get(ProductSku, obj.sku_id)
+        lock_product(session, sku.product_id)
+        if has_unshipped(session, sku.id, obj.merchant_id):
+            fail(409, "UNSHIPPED_ORDERS", "此规格有待发货订单，请先履约或取消后再替换报价")
         if session.get(Product, sku.product_id).status not in {"APPROVED", "ON_SALE", "OFF_SALE"}:
             fail(409, "PRODUCT_NOT_APPROVED", "商品尚未通过审核")
         # The unique active_slot constraint is the final arbiter under concurrent approvals.

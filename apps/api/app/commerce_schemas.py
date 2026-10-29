@@ -158,6 +158,17 @@ class ProductSummary(BaseModel):
     status: str
     cover_url: str | None
     lowest_price: float | None
+    is_demo: bool = False
+
+
+class DemoSource(BaseModel):
+    photographer: str
+    platform: str
+    photo_url: str
+    license_url: str
+    price_reference_url: str
+    price_note: str
+    checked_at: str
 
 
 class ProductResult(ProductSummary):
@@ -169,6 +180,7 @@ class ProductResult(ProductSummary):
     version: int
     skus: list[SkuResult]
     audits: list[AuditEntry] | None = None
+    demo_source: DemoSource | None = None
 
 
 class ProductPage(BaseModel):

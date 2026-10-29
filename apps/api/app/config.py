@@ -18,6 +18,8 @@ class Settings:
     access_token_minutes: int = 30
     dev_verification_code: str = "123456"
     upload_dir: Path = API_ROOT / ".local" / "uploads"
+    image_model_path: Path = API_ROOT / ".local" / "models" / "resnet18-f37072fd.pth"
+    image_search_preload: bool = True
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -34,4 +36,6 @@ class Settings:
             access_token_minutes=int(os.getenv("ACCESS_TOKEN_MINUTES", "30")),
             dev_verification_code=os.getenv("DEV_VERIFICATION_CODE", "123456"),
             upload_dir=Path(os.getenv("UPLOAD_DIR", str(API_ROOT / ".local" / "uploads"))),
+            image_model_path=Path(os.getenv("IMAGE_MODEL_PATH", str(API_ROOT / ".local" / "models" / "resnet18-f37072fd.pth"))),
+            image_search_preload=os.getenv("IMAGE_SEARCH_PRELOAD","1") != "0",
         )

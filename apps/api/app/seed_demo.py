@@ -1,7 +1,7 @@
 """Create local demonstration accounts and products through the real M2 API.
 
 Run after `alembic upgrade head`. Passwords are generated into ignored .local.
-All images are schematic fixtures, not product photography or retrieval data.
+Lamp photos use the documented third-party licenses; prices are demonstration data.
 """
 
 from io import BytesIO
@@ -16,6 +16,7 @@ from .config import API_ROOT, Settings
 from .main import create_app
 from .models import Role, User
 from .security import hash_password
+from .demo_catalog import import_catalog, load_catalog
 
 
 def illustration(kind="TABLE", color="#c6a76f"):
@@ -44,6 +45,7 @@ def seed():
     settings = Settings.from_env()
     if settings.app_env != "local":
         raise SystemExit("Demo seeding is restricted to APP_ENV=local")
+    catalog = load_catalog()
     app = create_app(settings)
     accounts_path = API_ROOT / ".local" / "demo-accounts.json"
     with app.state.session_factory() as session:
@@ -78,24 +80,8 @@ def seed():
             image = call("POST", "/files", who, data={"purpose": "LICENSE"}, files={"file": ("demo.png", illustration("LICENSE"), "image/png")})
             profile = call("PUT", "/merchant/application", who, json={"shop_name": shop, "legal_name": "演示负责人", "contact_phone": "13800138000", "address": "课程演示地址（虚构）", "business_license_file_id": image["id"]})
             call("POST", f"/admin/merchants/{profile['id']}/audit", "admin", json={"result": "APPROVED", "version": profile["version"], "reason": "仅用于本地课程演示，非真实认证"})
-        category_ids = {c["code"]: c["id"] for c in call("GET", "/categories")}
-        for index, (name, category, color, price) in enumerate([
-            ("暮光黄铜台灯", "TABLE", "#bd9a61", 199), ("弧光奶油吊灯", "PENDANT", "#cfbb9a", 369), ("森影阅读落地灯", "FLOOR", "#74856d", 459)
-        ]):
-            photo = call("POST", "/files", "merchant", data={"purpose": "PRODUCT"}, files={"file": ("lamp.png", illustration(category, color), "image/png")})
-            product = call("POST", "/merchant/products", "merchant", json={"category_id": category_ids[category], "name": name,
-                "brand": "LUMIÈRE 演示", "style": "现代简约", "application_space": "客厅 / 书房", "description": "课程演示灯具，图片为程序绘制示意图；规格和价格均为虚构数据。",
-                "skus": [{"sku_code": f"DEMO-{index + 1:03}-A", "color": "暖砂色", "material": "金属 / 织物", "power_watt": 12, "color_temperature": "3000K", "image_file_ids": [photo["id"]]}]})
-            pending = call("POST", f"/merchant/products/{product['id']}/submit", "merchant", json={"version": product["version"]})
-            reviewed = call("POST", f"/admin/products/{product['id']}/audit", "admin", json={"result": "APPROVED", "version": pending["version"]})
-            sku_id = product["skus"][0]["id"]
-            for who, offset in [("merchant", 0), ("merchant2", -20)]:
-                offer = call("POST", f"/merchant/skus/{sku_id}/offers", who, json={"price": price + offset, "stock_qty": 20, "unit": "件", "remark": "虚构演示报价"})
-                submitted = call("POST", f"/merchant/offers/{offer['id']}/submit", who, json={"version": offer["version"]})
-                call("POST", f"/admin/offers/{offer['id']}/audit", "admin", json={"result": "APPROVED", "version": submitted["version"]})
-            call("POST", f"/merchant/products/{product['id']}/sale", "merchant", json={"version": reviewed["version"], "on_sale": True})
-        assert call("GET", "/products")["total"] >= 3
-        print("Created 3 demo products, 6 offers and 4 local accounts.")
+        result = import_catalog(app, call, catalog)
+        print(f"Created {result['created']} demo products, 40 offers and 4 local accounts.")
         print(f"Account credentials saved locally only: {accounts_path}")
     finally:
         client.close()

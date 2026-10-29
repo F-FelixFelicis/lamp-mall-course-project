@@ -13,3 +13,5 @@
 *.sqlite3
 *.log
 .qa/
+apps/customer-mini/src/components/ImageSearchPanel.vue
+apps/merchant-mini/src/components/ImageSearchPanel.vue

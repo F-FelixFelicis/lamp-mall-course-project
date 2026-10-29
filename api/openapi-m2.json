@@ -1298,6 +1298,49 @@
         ],
         "title": "CategoryResult"
       },
+      "DemoSource": {
+        "properties": {
+          "photographer": {
+            "type": "string",
+            "title": "Photographer"
+          },
+          "platform": {
+            "type": "string",
+            "title": "Platform"
+          },
+          "photo_url": {
+            "type": "string",
+            "title": "Photo Url"
+          },
+          "license_url": {
+            "type": "string",
+            "title": "License Url"
+          },
+          "price_reference_url": {
+            "type": "string",
+            "title": "Price Reference Url"
+          },
+          "price_note": {
+            "type": "string",
+            "title": "Price Note"
+          },
+          "checked_at": {
+            "type": "string",
+            "title": "Checked At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "photographer",
+          "platform",
+          "photo_url",
+          "license_url",
+          "price_reference_url",
+          "price_note",
+          "checked_at"
+        ],
+        "title": "DemoSource"
+      },
       "ErrorResponse": {
         "properties": {
           "code": {
@@ -1813,6 +1856,11 @@
             ],
             "title": "Lowest Price"
           },
+          "is_demo": {
+            "type": "boolean",
+            "title": "Is Demo",
+            "default": false
+          },
           "category_id": {
             "type": "integer",
             "title": "Category Id"
@@ -1885,6 +1933,16 @@
               }
             ],
             "title": "Audits"
+          },
+          "demo_source": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DemoSource"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "type": "object",
@@ -1944,6 +2002,11 @@
               }
             ],
             "title": "Lowest Price"
+          },
+          "is_demo": {
+            "type": "boolean",
+            "title": "Is Demo",
+            "default": false
           }
         },
         "type": "object",

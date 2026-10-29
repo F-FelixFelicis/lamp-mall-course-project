@@ -1,0 +1,4 @@
+-r requirements.txt
+# CPU inference is sufficient. Install the matching official wheels for your OS.
+torch>=2.9,<2.10
+torchvision>=0.24,<0.25

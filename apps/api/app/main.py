@@ -1,6 +1,8 @@
 """M1 FastAPI application."""
 
 from datetime import datetime, timezone
+from contextlib import asynccontextmanager
+import logging
 import uuid
 
 from fastapi import Depends, FastAPI, Request
@@ -10,6 +12,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy import or_, select, text
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import Session, sessionmaker
+from starlette.concurrency import run_in_threadpool
 
 from .config import Settings
 from .database import get_session, make_engine
@@ -41,7 +44,21 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     if settings.app_env == "production" and len(settings.jwt_secret) < 32:
         raise ValueError("JWT_SECRET must contain at least 32 characters in production")
     engine = make_engine(settings.database_url)
-    app = FastAPI(title="灯具商城 API", version="0.2.0", docs_url="/api/docs", openapi_url="/api/openapi.json")
+    @asynccontextmanager
+    async def lifespan(application):
+        index=application.state.image_index
+        if settings.app_env != "test" and settings.image_search_preload and index.path.is_file() and index.weights_path.is_file():
+            from .image_features import SearchUnavailable
+            try:
+                await run_in_threadpool(index.load)
+                await run_in_threadpool(index.encoder)
+            except SearchUnavailable as exc:
+                logging.getLogger("lamp_mall.image_search").warning("Image search preload unavailable: %s",exc)
+        yield
+
+    app = FastAPI(title="灯具商城 API", version="0.4.0", docs_url="/api/docs", openapi_url="/api/openapi.json", lifespan=lifespan)
+    from .image_query_memory import ImageQueryMemoryLimit
+    app.add_middleware(ImageQueryMemoryLimit)
     if settings.app_env in {"local", "test"}:
         app.add_middleware(
             CORSMiddleware,
@@ -87,6 +104,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             from .commerce_models import Category
             if session.scalar(select(Category.id).limit(1)) is None:
                 raise ValueError("M2 categories missing")
+            from .order_models import Order
+            session.execute(select(Order.id).limit(1))
+            from .image_models import ImageSearchLog
+            session.execute(select(ImageSearchLog.id).limit(1))
         except (SQLAlchemyError, ValueError):
             raise ApiError(503, "READINESS_FAILED", "数据库迁移或基础角色尚未就绪") from None
         return {"status": "ready"}
@@ -141,6 +162,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     from .commerce import router
     app.include_router(router)
+    from .orders import router as order_router
+    app.include_router(order_router)
+    from .image_index import ImageIndex
+    from .image_search import router as image_router
+    app.state.image_index = ImageIndex(settings)
+    app.include_router(image_router)
     return app
 
 

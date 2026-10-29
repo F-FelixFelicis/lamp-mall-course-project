@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { privateImage, request } from './api'
+import OrderDesk from './OrderDesk.vue'
+import ImageSearchDesk from './ImageSearchDesk.vue'
 import { statusText, type Merchant, type Offer, type Product } from '../../shared/catalog'
 defineProps<{ name: string }>()
 defineEmits<{ logout: [] }>()
@@ -37,8 +39,10 @@ onMounted(refresh); onUnmounted(closePreview)
   <div class="desk">
     <header><div><span class="eyebrow dark">LUMIÈRE · 商城管理</span><h1>审核工作台</h1><p>你好，{{ name }}。查看申请资料，确认商品与报价。</p></div><div class="header-actions"><button class="secondary" :disabled="busy" @click="refresh">刷新</button><button class="secondary" @click="$emit('logout')">退出登录</button></div></header>
     <div class="metrics"><div v-for="(label, i) in ['商家待审核', '商品待审核', '报价待审核']" :key="label"><strong>{{ pending[i] }}</strong><span>{{ label }}</span></div></div>
-    <nav><button v-for="entry in [{ id: 'merchants', label: '商家认证' }, { id: 'products', label: '商品资料' }, { id: 'offers', label: '销售报价' }]" :key="entry.id" :class="{ active: tab === entry.id }" @click="tab = entry.id">{{ entry.label }}</button></nav>
+    <nav><button v-for="entry in [{ id: 'merchants', label: '商家认证' }, { id: 'products', label: '商品资料' }, { id: 'offers', label: '销售报价' }, { id: 'orders', label: '订单查询' }, { id: 'image-search', label: '以图搜图' }]" :key="entry.id" :class="{ active: tab === entry.id }" @click="tab = entry.id">{{ entry.label }}</button></nav>
     <p v-if="error" class="error" role="alert">{{ error }}</p><p v-if="busy" class="muted" role="status">正在处理…</p>
+    <OrderDesk v-if="tab === 'orders'" />
+    <ImageSearchDesk v-if="tab === 'image-search'" />
     <section v-if="tab === 'merchants'">
       <p v-if="!merchants.length" class="empty">暂无商家申请。商家提交认证后，会显示在这里。</p>
       <article v-for="m in merchants" :key="m.id"><div class="row"><h2>{{ m.shop_name }}</h2><span class="badge">{{ statusText(m.certification_status) }}</span></div><p>负责人：{{ m.legal_name }} · 联系电话：{{ m.contact_phone }}</p><p>{{ m.address }}</p><button class="link" :disabled="busy" @click="showImage(`/api/v1/files/${m.business_license_file_id}/content`)">查看营业执照</button>

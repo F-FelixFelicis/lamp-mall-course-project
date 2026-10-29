@@ -1,0 +1,4 @@
+export type SimilarItem = { sku_id:number; product_id:number; product_name:string; sku_code:string; category_name:string; matched_image_url:string; lowest_price:number; is_demo:boolean; score:number }
+export type ImageSearchResult = { query_id:string; method:string; index_version:string; algorithm_version:string; elapsed_ms:number; items:SimilarItem[]; warning:string }
+export type ImageIndexStatus = { ready:boolean; message:string; needs_rebuild:boolean; eligible_images:number; indexed_images:number; indexed_skus:number; weights_ready:boolean; model_preloaded:boolean; dependencies_ready:boolean; query_images_retained:boolean; index_version?:string; created_at?:string; deep_version?:string; color_version?:string; weights_sha256?:string }
+export type ImageSearchLog = { query_id:string; method:string; index_version:string; elapsed_ms:number; requested_k:number; result_count:number; result_sku_ids:number[]; created_at:string }

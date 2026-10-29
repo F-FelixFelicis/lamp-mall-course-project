@@ -1,7 +1,7 @@
 export type User = { id: number; display_name: string; phone_masked?: string; roles: string[]; status: string }
 type Token = { access_token: string; token_type: string; expires_in: number }
 type ErrorBody = { message?: string }
-const BASE = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000'
+export const BASE = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000'
 const TOKEN_KEY = 'lamp_mall_merchant_token'
 export function request<T>(path: string, method: 'GET' | 'POST' | 'PUT' = 'GET', data?: object, token: string = getToken()): Promise<T> {
   return new Promise((resolve, reject) => uni.request({
@@ -19,7 +19,7 @@ export async function login(account: string, password: string): Promise<User> {
   catch (cause) { clearToken(); throw cause }
 }
 export function currentUser(): Promise<User> { return request<User>('/auth/me', 'GET', undefined, getToken()) }
-export function chooseUpload(purpose: 'LICENSE' | 'PRODUCT'): Promise<import('../../shared/catalog').Uploaded> {
+export function chooseUpload(purpose: 'LICENSE' | 'PRODUCT' | 'SHIPMENT'): Promise<import('../../shared/catalog').Uploaded> {
   return new Promise((resolve, reject) => uni.chooseImage({ count: 1, sizeType: ['compressed'], success(selection) {
     uni.uploadFile({ url: `${BASE}/api/v1/files`, filePath: selection.tempFilePaths[0], name: 'file', formData: { purpose }, header: { Authorization: `Bearer ${getToken()}` },
       success(response) { try { const body = JSON.parse(response.data); if (response.statusCode >= 200 && response.statusCode < 300) resolve(body); else reject(new Error(body.message || '上传失败')) } catch { reject(new Error('上传响应无效')) } }, fail(e) { reject(new Error(e.errMsg || '上传失败')) } })
